@@ -1,0 +1,13 @@
+{
+  "name": "express-auth-session",
+  "version": "1.0.0",
+  "description": "",
+  "main": "extra.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "npm run dev --prefix api"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {}
+}
