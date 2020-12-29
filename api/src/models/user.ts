@@ -1,8 +1,10 @@
 import { DataTypes, Sequelize } from 'sequelize';
 import { UserStatic } from './types';
+import { compare, hash } from 'bcrypt'
+import { BCRYPT_WORK_FACTOR } from '../config';
 
 export function userFactory (sequelize: Sequelize): UserStatic {
-    return <UserStatic>sequelize.define("Users", {
+    const userModel = <UserStatic>sequelize.define("Users", {
         id: {
             type: DataTypes.INTEGER,
             autoIncrement: true,
@@ -32,4 +34,16 @@ export function userFactory (sequelize: Sequelize): UserStatic {
             defaultValue: DataTypes.NOW,
         },
     });
+
+    userModel.beforeSave(async (user) => {
+        if (user.previous('password') != user.password) {
+            user.password = await hash(user.password, BCRYPT_WORK_FACTOR)
+        }
+    });
+
+    userModel.prototype.matchesPassword = function (password: string) { 
+        return compare(password, this.password)
+    }
+
+    return userModel
 }

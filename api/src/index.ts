@@ -11,8 +11,9 @@ import { REDIS_OPTIONS, APP_PORT } from './config'
 // db models 
 import { db } from './models';
 
-
 ;(async () => {
+
+
     db.sync().then(() => console.log('Connected and synced to database.'))
         .catch(err => console.log(`Error connecting: \n${err}`))
 

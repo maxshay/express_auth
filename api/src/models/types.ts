@@ -9,7 +9,9 @@ export interface UserAttributes {
   updatedAt?: Date,
 }
 
-export interface UserModel extends Model<UserAttributes>, UserAttributes {}
+export interface UserModel extends Model<UserAttributes>, UserAttributes {
+    matchesPassword: (password: string) => Promise<boolean>
+}
 
 export class User extends Model<UserModel, UserAttributes> {}
 

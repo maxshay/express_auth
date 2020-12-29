@@ -9,17 +9,16 @@ const SIX_HOURS = ONE_HOUR * 6
 
 const { env } = process
 
-const {
+export const {
     SESSION_SECRET,
     SESSION_NAME,
     SESSION_IDLE_TIMEOUT = THIRTY_MINUTES
 } = env
 
-
 export const SESSION_ABSOLUTE_TIMEOUT = +(env.SESSION_ABSOLUTE_TIMEOUT || SIX_HOURS)
 
 export const SESSION_OPTIONS: SessionOptions = {
-    secret: SESSION_SECRET,
+    secret: SESSION_SECRET || 'secretsomething',
     name: SESSION_NAME,
     cookie: {
       maxAge: +SESSION_IDLE_TIMEOUT,

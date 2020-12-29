@@ -1,8 +1,10 @@
 import express, { Response, Request, NextFunction }  from 'express'
 import session, { Store } from 'express-session'
-import { register } from './routes'
+import { login, register, home } from './routes'
 import { SESSION_OPTIONS } from './config'
-import { internalServerError, notFound } from './middleware/errors'
+import { internalServerError, notFound } from './middleware'
+import { active } from './middleware'
+
 
 export const createApp = (store: Store) => {
 
@@ -16,7 +18,10 @@ export const createApp = (store: Store) => {
         })
     )
 
+    app.use(active)
     app.use(register)
+    app.use(login)
+    app.use(home)
 
     app.get('/', (req,res) => res.json({message: 'GOOD'}))
 

@@ -13,8 +13,12 @@ router.post('/register', guest, catchAsync(async (req, res) => {
   
 
     const { email, name, password } = req.body
+
     const user = await User.findOne({ where: { email: email } })
+
+    // console.log('user: ',user)
     if (user) {
+        // console.log('hit')
         throw new BadRequest('Invalid email.')
     }
 
@@ -22,7 +26,7 @@ router.post('/register', guest, catchAsync(async (req, res) => {
         email, name, password
     })
 
-    logIn(req, newUser?.id?.toString() ?? "999")
+    logIn(req, newUser?.id?.toString())
 
     res.json({message: 'OK'})
 
