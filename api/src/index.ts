@@ -11,6 +11,12 @@ import { REDIS_OPTIONS, APP_PORT } from './config'
 // db models 
 import { db } from './models';
 
+declare module 'express-session' {
+    export interface SessionData {
+        [key: string]: any
+    }
+}
+
 ;(async () => {
 
 
